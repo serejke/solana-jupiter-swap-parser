@@ -1,46 +1,84 @@
-# Parser for Jupiter V6 Contract
+# Express server to parse Solana Jupiter V6 Swaps
 
-A library you can use to parse the Jupiter v6 swap instruction. It is also the same library that we use to parse the swap information on the https://station.jup.ag/stats page.
+Original repository https://github.com/jup-ag/instruction-parser.
 
-After cloning the repo, in the project directory run `yarn install`. Then:
-
-
-```
-yarn start lookup-tx --signature <TRANSACTION_SIGNATURE> --rpc <RPC_URL>
-```
-
-For an example on how to use the library, you can check out: `src/cli.ts`.
-
-## NPM
-
-If you are using this via NPM, make sure that you are using the right version for the right contract:
-
-* `JUP4Fb2cqiRUcaTHdrPC8h2gNsA2ETXiPDD33WcGuJB`: `1.0.5`
-* `JUP5pEAZeHdHrLxh5UCwAbpjGwYKKoquCpda2hfP4u8`: `5.0.1`
-* `JUP5cHjnnCx2DppVsufsLrXs8EBZeEZzGtEK9Gdz6ow`: `5.2.0`
-* `JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4`: `6.0.7`
-
-If you will need all of them in order to parse different contract, you can include them in your `package.json` as this:
-
+This repository provides an Express server with the single endpoint `GET http://localhost:3000/parse-jupiter-swaps?signature=4KHPmpbkv28HfhzR1gM1szgtpqg2CLhQo4eo1tD8qctWE4ULYw7fPKuNWPwJjszdq3qin526dC3iYBhcYbragwou`
+returning the following output:
 ```json
 {
-  "dependencies": {
-    "@jup-ag/instruction-parser-v4": "npm:@jup-ag/instruction-parser@1.0.5",
-    "@jup-ag/instruction-parser-v5": "npm:@jup-ag/instruction-parser@5.0.1",
-    "@jup-ag/instruction-parser-v5-1": "npm:@jup-ag/instruction-parser@5.2.0",
-    "@jup-ag/instruction-parser-v6": "npm:@jup-ag/instruction-parser@6.0.7"
-  }
+  "type": "parsed",
+  "swaps": [
+    {
+      "transferAuthority": "2N9io9YyWirVHGddTSos7a5Z2Fa9hWcnngVXctZ8Gedo",
+      "lastAccount": "2N9io9YyWirVHGddTSos7a5Z2Fa9hWcnngVXctZ8Gedo",
+      "instruction": "route",
+      "owner": "2N9io9YyWirVHGddTSos7a5Z2Fa9hWcnngVXctZ8Gedo",
+      "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+      "signature": "4KHPmpbkv28HfhzR1gM1szgtpqg2CLhQo4eo1tD8qctWE4ULYw7fPKuNWPwJjszdq3qin526dC3iYBhcYbragwou",
+      "timestamp": 1718975806,
+      "legCount": 1,
+      "inAmount": "10000000",
+      "inMint": "So11111111111111111111111111111111111111112",
+      "outAmount": "1449869193",
+      "outMint": "KnekM3v5WsqvJ6NdZLPvEBeueBMH8iNfWBcHi8r1KGA",
+      "exactOutAmount": "1450457633",
+      "swapData": [
+        {
+          "amm": "Raydium",
+          "inMint": "So11111111111111111111111111111111111111112",
+          "inAmount": "10000000",
+          "outMint": "KnekM3v5WsqvJ6NdZLPvEBeueBMH8iNfWBcHi8r1KGA",
+          "outAmount": "1449869193"
+        }
+      ]
+    }
+  ],
+  "signature": "4KHPmpbkv28HfhzR1gM1szgtpqg2CLhQo4eo1tD8qctWE4ULYw7fPKuNWPwJjszdq3qin526dC3iYBhcYbragwou"
 }
 ```
 
-## Note
+### Errors
+In case the signature cannot be parsed into Jupiter swaps, there are different errors (all with HTTP 200 return code).
 
-We are using Anchor events for extracting swap details. One downside about this approach is that we cannot longer extract swap details if the log is being truncated.
+#### RPC Error
+```json
+{
+  "type": "rpcError",
+  "error": "error messages"
+}
+```
 
-## Jupiter V4 Contract
+#### Transaction is not found
+```json
+{
+  "type": "txNotFound"
+}
+```
 
-For the old V4 contract, check out [v4 tag](https://github.com/jup-ag/instruction-parser/tree/v4).
+#### The Transaction is found in a block, but it failed to execute
+```json
+{
+  "type": "txFailedOnChain"
+}
+```
 
-## Jupiter V3 Contract
+#### The Transaction does not have any swaps
+```json
+{
+  "type": "noSwaps"
+}
+```
 
-For the old V3 contract, check out [v3 tag](https://github.com/jup-ag/instruction-parser/tree/v3).
+### How to start
+```shell
+yarn build
+
+yarn start-server
+```
+
+### Docker
+```shell
+docker build -t jupiter-swap-parser .
+
+docker run -p 3000:3000 -e NODE_URL="https://api.mainnet-beta.solana.com" jupiter-swap-parser
+```

@@ -1,0 +1,12 @@
+.git
+.idea
+dist
+node_modules
+.dockerignore
+.env
+.env.sample
+
+.byebug_history
+log/*
+tmp/*
+*.local

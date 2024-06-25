@@ -45,6 +45,8 @@ const reduceEventData = <T>(events: Event[], name: string) =>
     return acc;
   }, new Array<T>());
 
+// TODO: currently, this only parses the first swap instruction from a transaction, but in fact there may be multiple swaps,
+//  Example transaction: https://solscan.io/tx/QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY
 export async function extract(
   signature: string,
   tx: TransactionWithMeta,
