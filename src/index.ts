@@ -1,6 +1,5 @@
 import { BN, Event, Program, Provider } from "@coral-xyz/anchor";
-import { unpackAccount } from "@solana/spl-token";
-import { AccountInfo, Connection, PublicKey } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { InstructionParser } from "./lib/instruction-parser";
 import { getEvents } from "./lib/get-events";
 import { AMM_TYPES, JUPITER_V6_PROGRAM_ID } from "./constants";
@@ -15,8 +14,6 @@ export const program = new Program<Jupiter>(
   JUPITER_V6_PROGRAM_ID,
   {} as Provider
 );
-
-type AccountInfoMap = Map<string, AccountInfo<Buffer>>;
 
 export type SwapAttributes = {
   owner: string;
@@ -34,7 +31,6 @@ export type SwapAttributes = {
   exactOutAmount: BigInt;
   swapData: JSON;
   feeTokenPubkey?: string;
-  feeOwner?: string;
   feeAmount?: BigInt;
   feeMint?: string;
   tokenLedger?: string;
@@ -51,12 +47,10 @@ const reduceEventData = <T>(events: Event[], name: string) =>
 
 export async function extract(
   signature: string,
-  connection: Connection,
   tx: TransactionWithMeta,
   blockTime?: number
 ): Promise<SwapAttributes | undefined> {
   const programId = JUPITER_V6_PROGRAM_ID;
-  const accountInfosMap: AccountInfoMap = new Map();
 
   const logMessages = tx.meta.logMessages;
   if (!logMessages) {
@@ -73,22 +67,6 @@ export async function extract(
     // Not a swap event, for example: https://solscan.io/tx/5ZSozCHmAFmANaqyjRj614zxQY8HDXKyfAs2aAVjZaadS4DbDwVq8cTbxmM5m5VzDcfhysTSqZgKGV1j2A2Hqz1V
     return;
   }
-
-  const accountsToBeFetched = new Array<PublicKey>();
-  swapEvents.forEach((swapEvent) => {
-    accountsToBeFetched.push(swapEvent.inputMint);
-    accountsToBeFetched.push(swapEvent.outputMint);
-  });
-
-  if (feeEvent) {
-    accountsToBeFetched.push(feeEvent.account);
-  }
-  const accountInfos = await connection.getMultipleAccountsInfo(
-    accountsToBeFetched
-  );
-  accountsToBeFetched.forEach((account, index) => {
-    accountInfosMap.set(account.toBase58(), accountInfos[index]);
-  });
 
   const swapData = await parseSwapEvents(swapEvents);
   const instructions = parser.getInstructions(tx);
@@ -154,10 +132,6 @@ export async function extract(
         feeEvent.amount
       );
     swap.feeTokenPubkey = feeEvent.account.toBase58();
-    swap.feeOwner = extractTokenAccountOwner(
-      accountInfosMap,
-      feeEvent.account
-    )?.toBase58();
     swap.feeAmount = BigInt(amount);
     swap.feeMint = mint;
   }
@@ -212,18 +186,4 @@ async function extractVolume(
     mint: mint.toBase58(),
     amount: amount.toString()
   };
-}
-
-function extractTokenAccountOwner(
-  accountInfosMap: AccountInfoMap,
-  account: PublicKey
-) {
-  const accountData = accountInfosMap.get(account.toBase58());
-
-  if (accountData) {
-    const accountInfo = unpackAccount(account, accountData, accountData.owner);
-    return accountInfo.owner;
-  }
-
-  return;
 }

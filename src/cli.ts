@@ -24,7 +24,6 @@ program
 
     const result = await extract(
       signature,
-      connection,
       tx,
       tx.blockTime
     );
