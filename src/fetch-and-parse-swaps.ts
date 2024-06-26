@@ -11,7 +11,8 @@ export type SwapAttributesJsonFriendly = Omit<
   exactInAmount: string,
   exactOutAmount: string,
   feeAmount: string,
-  timestamp: number
+  timestamp: number,
+  fee: number
 }
 
 export type ParsedSwapResult = { signature: string } & ({
@@ -81,6 +82,8 @@ export async function fetchAndParseSwaps(
 
   timedLog(`${prefix}: parsed`);
 
+  const fee = tx.meta.fee;
+
   const swapJsonFriendly: SwapAttributesJsonFriendly = {
     ...swap,
     inAmount: swap.inAmount.toString(),
@@ -89,6 +92,7 @@ export async function fetchAndParseSwaps(
     exactOutAmount: swap.exactOutAmount?.toString(),
     feeAmount: swap.feeAmount?.toString(),
     timestamp: swap.timestamp.getTime() / 1000,
+    fee: fee
   }
 
   return {
