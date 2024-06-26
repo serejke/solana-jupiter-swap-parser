@@ -33,6 +33,7 @@ returning the following output:
       ]
     }
   ],
+  "fee": 755000,
   "signature": "4KHPmpbkv28HfhzR1gM1szgtpqg2CLhQo4eo1tD8qctWE4ULYw7fPKuNWPwJjszdq3qin526dC3iYBhcYbragwou"
 }
 ```

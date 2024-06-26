@@ -11,13 +11,13 @@ export type SwapAttributesJsonFriendly = Omit<
   exactInAmount: string,
   exactOutAmount: string,
   feeAmount: string,
-  timestamp: number,
-  fee: number
+  timestamp: number
 }
 
 export type ParsedSwapResult = { signature: string } & ({
   type: 'parsed',
-  swaps: SwapAttributesJsonFriendly[]
+  swaps: SwapAttributesJsonFriendly[],
+  fee: number
 } | {
   type: 'rpcError',
   error: string
@@ -92,12 +92,12 @@ export async function fetchAndParseSwaps(
     exactOutAmount: swap.exactOutAmount?.toString(),
     feeAmount: swap.feeAmount?.toString(),
     timestamp: swap.timestamp.getTime() / 1000,
-    fee: fee
   }
 
   return {
     type: 'parsed',
     swaps: [swapJsonFriendly],
-    signature
+    signature,
+    fee
   }
 }
