@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import { Connection } from '@solana/web3.js';
-import { fetchAndParseSwaps } from './fetch-and-parse-swaps';
-import { isValidSolanaSignature } from './utils';
+import { Connection, ParsedTransactionWithMeta } from '@solana/web3.js';
+import { fetchAndParseSwaps } from './logic/fetch-and-parse-swaps';
+import { parseJupiterSwaps } from './logic/parse-jupiter-swaps';
+import { isValidSolanaSignature } from './utils/signature-utils';
+import { parsedTransactionBody } from './api/parsed-transaction-body';
 
 dotenv.config();
 
@@ -32,7 +34,19 @@ app.get('/parse-jupiter-swaps', async (req, res) => {
   }
 
   try {
-    const result = await fetchAndParseSwaps(connection, signature);
+    const result = await fetchAndParseSwaps(signature, connection);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/parse-jupiter-swaps-from-transaction', async (req, res) => {
+  const transaction: ParsedTransactionWithMeta = parsedTransactionBody(req.body);
+
+  const signature = transaction.transaction.signatures[0];
+  try {
+    const result = await parseJupiterSwaps(signature, transaction);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
