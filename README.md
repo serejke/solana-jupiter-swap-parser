@@ -2,7 +2,7 @@
 
 Original repository https://github.com/jup-ag/instruction-parser.
 
-Express server with endpoints 
+Express server with endpoints
 - `GET http://localhost:3000/parse-jupiter-swaps?signature=4KHPmpbkv28HfhzR1gM1szgtpqg2CLhQo4eo1tD8qctWE4ULYw7fPKuNWPwJjszdq3qin526dC3iYBhcYbragwou`
 - `POST http://localhost:3000/parse-jupiter-swaps-from-transaction`
 
