@@ -1,10 +1,8 @@
 import { BN, Event, Program, Provider } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { InstructionParser } from "./lib/instruction-parser";
-import { getEvents } from "./lib/get-events";
 import { AMM_TYPES, JUPITER_V6_PROGRAM_ID } from "./constants";
 import {
-  FeeEvent,
   ParsedFeeEvent,
   ParsedSwapEvent,
   SwapEvent,
@@ -66,8 +64,7 @@ export async function extract(
   }
 
   const parser = new InstructionParser(programId);
-  const events = getEvents(program, tx);
-  const parsedEvents = await parser.getParsedEvents(tx, connection);
+  const parsedEvents = await parser.getParsedEvents(tx);
 
   const swapEvents = reduceEventData<ParsedSwapEvent>(
     parsedEvents,

@@ -55,17 +55,13 @@ program
         continue;
       }
 
-      const tokenMap = await getTokenMap();
-
       try {
         await extract(
           signature.signature,
-          connection,
           tx,
-          tokenMap,
           tx.blockTime
         );
-        console.log("Transaction succesfully extracted: ", signature.signature);
+        console.log("Transaction successfully extracted: ", signature.signature);
       } catch (error) {
         console.log(
           "Error while extracting transaction: ",

@@ -1,4 +1,4 @@
-import { Connection, ParsedInstruction, PublicKey } from "@solana/web3.js";
+import { ParsedInstruction, PublicKey } from "@solana/web3.js";
 import { BorshCoder } from "@coral-xyz/anchor";
 import { IDL } from "../idl/jupiter";
 import {
@@ -10,9 +10,7 @@ import {
   SwapFee,
   SwapInfo,
   TransactionWithMeta,
-  TransferType,
 } from "../types";
-import { getAccount } from "@solana/spl-token";
 import {
   getSwapDirection,
   isFeeInstruction,
@@ -23,10 +21,11 @@ import {
   PLATFORM_FEE_ACCOUNTS_POSITION,
   SWAP_IN_OUT_ACCOUNTS_POSITION,
 } from "../constants";
+import { UnsupportedInstructionError } from '../utils/unsupported-instruction-error';
 
 export class InstructionParser {
   private coder: BorshCoder;
-  private programId: PublicKey;
+  private readonly programId: PublicKey;
 
   constructor(programId: PublicKey) {
     this.programId = programId;
@@ -140,7 +139,7 @@ export class InstructionParser {
     }
   }
 
-  async getParsedEvents(tx: TransactionWithMeta, connection: Connection) {
+  async getParsedEvents(tx: TransactionWithMeta) {
     const events: ParsedEvent[] = [];
     const routeInfo: RouteInfo = this.getProgramInstructionInfo(tx);
 
@@ -160,15 +159,11 @@ export class InstructionParser {
       );
 
       const inTransferData = await this.deduceTokenTransfers(
-        transferInstructions.inTransfers,
-        connection,
-        TransferType.IN
+        transferInstructions.inTransfers
       );
 
       const outTransferData = await this.deduceTokenTransfers(
-        transferInstructions.outTransfers,
-        connection,
-        TransferType.OUT
+        transferInstructions.outTransfers
       );
 
       const swapEvent: ParsedEvent = {
@@ -188,8 +183,7 @@ export class InstructionParser {
     if (routeInfo.platformFeeBps > 0) {
       const swapFee = await this.getSwapFee(
         routeInfo,
-        innerInstructions,
-        connection
+        innerInstructions
       );
 
       const feeEvent: ParsedEvent = {
@@ -316,9 +310,7 @@ export class InstructionParser {
   }
 
   async deduceTokenTransfers(
-    transferInstructions: ParsedInstruction[],
-    connection: Connection,
-    transferType: TransferType
+    transferInstructions: ParsedInstruction[]
   ) {
     let mint: PublicKey;
 
@@ -333,12 +325,7 @@ export class InstructionParser {
     const transferInstruction = transferInstructions[0];
 
     if (transferInstruction.parsed.type === "transfer") {
-      const account =
-        transferType === TransferType.IN
-          ? new PublicKey(transferInstruction.parsed.info.destination)
-          : new PublicKey(transferInstruction.parsed.info.source);
-      const accountInfo = await getAccount(connection, account);
-      mint = accountInfo.mint;
+      throw new UnsupportedInstructionError("'Transfer' instruction");
     } else {
       mint = new PublicKey(transferInstruction.parsed.info.mint);
     }
@@ -367,8 +354,7 @@ export class InstructionParser {
 
   async getSwapFee(
     routeInfo: RouteInfo,
-    innerInstructions: (PartialInstruction | ParsedInstruction)[],
-    connection: Connection
+    innerInstructions: (PartialInstruction | ParsedInstruction)[]
   ): Promise<SwapFee> {
     const feeAccountPosition = PLATFORM_FEE_ACCOUNTS_POSITION[routeInfo.name];
     const feeAccount = routeInfo.accounts[feeAccountPosition].toBase58();
@@ -384,11 +370,7 @@ export class InstructionParser {
         let amount: BigInt;
 
         if (parsedInnerInstruction.parsed.type === "transfer") {
-          const accountInfo = await getAccount(
-            connection,
-            new PublicKey(destination)
-          );
-          mint = accountInfo.mint;
+          throw new UnsupportedInstructionError("'Transfer' inner instruction");
         } else {
           mint = new PublicKey(parsedInnerInstruction.parsed.info.mint);
         }
