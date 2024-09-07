@@ -1,5 +1,4 @@
-import { BN, Event, Program, Provider } from "@coral-xyz/anchor";
-import { PublicKey } from "@solana/web3.js";
+import { Event, Program, Provider } from "@coral-xyz/anchor";
 import { InstructionParser } from "./lib/instruction-parser";
 import { getEvents } from "./lib/get-events";
 import { AMM_TYPES, JUPITER_V6_PROGRAM_ID } from "./constants";
@@ -135,14 +134,10 @@ export async function extract(
 async function parseSwapEvents(
   swapEvents: SwapEvent[]
 ) {
-  return await Promise.all(
-    swapEvents.map((swapEvent) =>
-      extractSwapData(swapEvent)
-    )
-  );
+  return swapEvents.map(extractSwapData);
 }
 
-async function extractSwapData(
+function extractSwapData(
   swapEvent: SwapEvent
 ) {
   const amm = AMM_TYPES[swapEvent.amm.toBase58()];
