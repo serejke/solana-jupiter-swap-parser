@@ -128,7 +128,7 @@ export class InstructionParser {
 
       const ix = this.coder.instruction.decode(instruction.data, "base58");
 
-      if (this.isExactIn(ix.name)) {
+      if (ix && this.isExactIn(ix.name)) {
         return (ix.data as any).quotedOutAmount.toString();
       }
     }
@@ -145,7 +145,7 @@ export class InstructionParser {
 
       const ix = this.coder.instruction.decode(instruction.data, "base58");
 
-      if (this.isExactOut(ix.name)) {
+      if (ix && this.isExactOut(ix.name)) {
         return (ix.data as any).quotedInAmount.toString();
       }
     }
