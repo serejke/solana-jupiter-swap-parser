@@ -11,8 +11,8 @@ export function getEvents(
   if (transactionResponse && transactionResponse.meta) {
     let { meta } = transactionResponse;
 
-    meta.innerInstructions?.map(async (ix) => {
-      ix.instructions.map(async (iix) => {
+    meta.innerInstructions?.forEach((ix) => {
+      ix.instructions.forEach((iix) => {
         if (!iix.programId.equals(JUPITER_V6_PROGRAM_ID)) return;
         if (!("data" in iix)) return; // Guard in case it is a parsed decoded instruction
 
