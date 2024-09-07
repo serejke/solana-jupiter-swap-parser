@@ -1,0 +1,27 @@
+{
+  "exactOutAmount": "900525349",
+  "feeAmount": "901426",
+  "feeMint": "So11111111111111111111111111111111111111112",
+  "feeTokenPubkey": "Fn3SaTQvNSosTZUAqsA4MQZR3cpq5i6c8da2qai4V5DT",
+  "inAmount": "774708564",
+  "inMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+  "instruction": "sharedAccountsRoute",
+  "lastAccount": "g7dD1FHSemkUQrX1Eak37wzvDjscgBW2pFCENwjLdMX",
+  "legCount": 1,
+  "outAmount": "901426775",
+  "outMint": "So11111111111111111111111111111111111111112",
+  "owner": "2Lq3EhGB8zdbxmRmMz5DwcvKL1VYjkizeLey92nAMaa6",
+  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+  "signature": "3wsLbgu88DjHmfrFCyS5r5NJyyJaYjC9xUQYuSiJEUNBLxKyuEqR9b6WnbrScWaWVKBbCHdxb6TQuB16Ri3pqkzb",
+  "swapData": [
+    {
+      "amm": "Marinade",
+      "inAmount": "774708564",
+      "inMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+      "outAmount": "901426775",
+      "outMint": "So11111111111111111111111111111111111111112"
+    }
+  ],
+  "timestamp": "2024-01-26T08:55:10.000Z",
+  "transferAuthority": "2Lq3EhGB8zdbxmRmMz5DwcvKL1VYjkizeLey92nAMaa6"
+}

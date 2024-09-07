@@ -1,0 +1,34 @@
+{
+  "exactOutAmount": "3116317",
+  "feeAmount": "26710",
+  "feeMint": "So11111111111111111111111111111111111111112",
+  "feeTokenPubkey": "EcDs7cZxDHnGtjBuL6E1QC5smfPaBVWbdTShCXyor6H3",
+  "inAmount": "5878070878",
+  "inMint": "vVe16q1aGVSnZtK8PCXFnsh45VW6HCVrJPKCBSbpump",
+  "instruction": "sharedAccountsRoute",
+  "lastAccount": "J56q6nX15WHRLJcsGB6s1bjaiywrn8DqLLvLccz61cYx",
+  "legCount": 2,
+  "outAmount": "3142401",
+  "outMint": "So11111111111111111111111111111111111111112",
+  "owner": "6oHypdkuE3n41w3XBidags663HQRiXBN8W4qjxyUz4YS",
+  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+  "signature": "2m6e4MBQ2wKiFhtc8d479C6SUKkqEiBzemwxSQVaSdr4zGHdoefxWz28u2rnCtUu7SfcgwWpEBDr3L5NZnEqffnv",
+  "swapData": [
+    {
+      "amm": "Meteora",
+      "inAmount": "5878070878",
+      "inMint": "vVe16q1aGVSnZtK8PCXFnsh45VW6HCVrJPKCBSbpump",
+      "outAmount": "398451555",
+      "outMint": "AkVt31h8vgji5wF4nVbq1QmBV5wBoe8JdSoDTkDhQwEw"
+    },
+    {
+      "amm": "Raydium",
+      "inAmount": "398451555",
+      "inMint": "AkVt31h8vgji5wF4nVbq1QmBV5wBoe8JdSoDTkDhQwEw",
+      "outAmount": "3142401",
+      "outMint": "So11111111111111111111111111111111111111112"
+    }
+  ],
+  "timestamp": "2024-06-25T03:42:01.000Z",
+  "transferAuthority": "6oHypdkuE3n41w3XBidags663HQRiXBN8W4qjxyUz4YS"
+}

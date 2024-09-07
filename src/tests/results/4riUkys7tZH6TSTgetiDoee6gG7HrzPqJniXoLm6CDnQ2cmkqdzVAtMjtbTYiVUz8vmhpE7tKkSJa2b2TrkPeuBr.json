@@ -1,0 +1,27 @@
+{
+  "exactOutAmount": "8022110",
+  "feeAmount": "68772",
+  "feeMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "feeTokenPubkey": "DB4KNmfTDs8XBjsqTfP2orBz297e5Uf7KtiGw39jRKPW",
+  "inAmount": "60000000",
+  "inMint": "So11111111111111111111111111111111111111112",
+  "instruction": "sharedAccountsRoute",
+  "lastAccount": "J56q6nX15WHRLJcsGB6s1bjaiywrn8DqLLvLccz61cYx",
+  "legCount": 1,
+  "outAmount": "8090882",
+  "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "owner": "AgHKxMdBmnvKVNBiqQHuLUVyHRGj7xsjVNGxnkUQbDHX",
+  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+  "signature": "4riUkys7tZH6TSTgetiDoee6gG7HrzPqJniXoLm6CDnQ2cmkqdzVAtMjtbTYiVUz8vmhpE7tKkSJa2b2TrkPeuBr",
+  "swapData": [
+    {
+      "amm": "Openbook",
+      "inAmount": "60000000",
+      "inMint": "So11111111111111111111111111111111111111112",
+      "outAmount": "8090882",
+      "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    }
+  ],
+  "timestamp": "2024-07-04T06:23:09.000Z",
+  "transferAuthority": "AgHKxMdBmnvKVNBiqQHuLUVyHRGj7xsjVNGxnkUQbDHX"
+}

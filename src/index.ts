@@ -111,16 +111,12 @@ export async function extract(
   swap.outAmount = outAmount;
   swap.outMint = outMint;
 
-  const exactOutAmount = parser.getExactOutAmount(
-    tx.transaction.message.instructions
-  );
+  const exactOutAmount = parser.getExactOutAmount(instructions);
   if (exactOutAmount) {
     swap.exactOutAmount = BigInt(exactOutAmount);
   }
 
-  const exactInAmount = parser.getExactInAmount(
-    tx.transaction.message.instructions
-  );
+  const exactInAmount = parser.getExactInAmount(instructions);
   if (exactInAmount) {
     swap.exactInAmount = BigInt(exactInAmount);
   }
