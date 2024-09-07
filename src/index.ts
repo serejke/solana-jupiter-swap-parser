@@ -128,14 +128,9 @@ export async function extract(
   swap.swapData = JSON.parse(JSON.stringify(swapData));
 
   if (feeEvent) {
-    const { mint, amount } =
-      await extractVolume(
-        feeEvent.mint,
-        feeEvent.amount
-      );
     swap.feeTokenPubkey = feeEvent.account.toBase58();
-    swap.feeAmount = BigInt(amount);
-    swap.feeMint = mint;
+    swap.feeAmount = BigInt(feeEvent.amount.toString());
+    swap.feeMint = feeEvent.mint.toBase58();
   }
 
   return swap;
@@ -156,36 +151,11 @@ async function extractSwapData(
 ) {
   const amm = AMM_TYPES[swapEvent.amm.toBase58()];
 
-  const {
-    mint: inMint,
-    amount: inAmount,
-  } = await extractVolume(
-    swapEvent.inputMint,
-    swapEvent.inputAmount
-  );
-  const {
-    mint: outMint,
-    amount: outAmount,
-  } = await extractVolume(
-    swapEvent.outputMint,
-    swapEvent.outputAmount
-  );
-
   return {
     amm,
-    inMint,
-    inAmount,
-    outMint,
-    outAmount,
-  };
-}
-
-async function extractVolume(
-  mint: PublicKey,
-  amount: BN
-) {
-  return {
-    mint: mint.toBase58(),
-    amount: amount.toString()
+    inMint: swapEvent.inputMint.toBase58(),
+    inAmount: swapEvent.inputAmount.toString(),
+    outMint: swapEvent.outputMint.toBase58(),
+    outAmount: swapEvent.outputAmount.toString(),
   };
 }
