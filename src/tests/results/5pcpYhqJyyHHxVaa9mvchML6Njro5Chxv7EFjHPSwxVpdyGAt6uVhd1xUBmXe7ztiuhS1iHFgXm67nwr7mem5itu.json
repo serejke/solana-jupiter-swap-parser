@@ -1,41 +1,43 @@
-{
-  "exactOutAmount": "3913523",
-  "feeAmount": "33550",
-  "feeMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
-  "feeTokenPubkey": "6WvkEJyEu72w9LsBpQ9rSU32ALszMrmBETWRuYnx7MMz",
-  "inAmount": "27309941",
-  "inMint": "So11111111111111111111111111111111111111112",
-  "instruction": "sharedAccountsRoute",
-  "lastAccount": "GjCj8ZMPr13p5XTJJALa7QoRJ1NUWgNcnmhWVgLsQEDr",
-  "legCount": 3,
-  "outAmount": "3947073",
-  "outMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
-  "owner": "GH6Sn8jt4CbQgHxqpTm3MbpVSGR94uSEhChwm8vmphkP",
-  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
-  "signature": "5pcpYhqJyyHHxVaa9mvchML6Njro5Chxv7EFjHPSwxVpdyGAt6uVhd1xUBmXe7ztiuhS1iHFgXm67nwr7mem5itu",
-  "swapData": [
-    {
-      "amm": "Lifinity v2",
-      "inAmount": "27309941",
-      "inMint": "So11111111111111111111111111111111111111112",
-      "outAmount": "17536596017",
-      "outMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
-    },
-    {
-      "amm": "Meteora",
-      "inAmount": "17536596017",
-      "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
-      "outAmount": "3948209",
-      "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-    },
-    {
-      "amm": "Whirlpool",
-      "inAmount": "3948209",
-      "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "outAmount": "3947073",
-      "outMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo"
-    }
-  ],
-  "timestamp": "2024-06-30T20:52:09.000Z",
-  "transferAuthority": "GH6Sn8jt4CbQgHxqpTm3MbpVSGR94uSEhChwm8vmphkP"
-}
+[
+  {
+    "exactOutAmount": "3913523",
+    "feeAmount": "33550",
+    "feeMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "feeTokenPubkey": "6WvkEJyEu72w9LsBpQ9rSU32ALszMrmBETWRuYnx7MMz",
+    "inAmount": "27309941",
+    "inMint": "So11111111111111111111111111111111111111112",
+    "instruction": "sharedAccountsRoute",
+    "lastAccount": "GjCj8ZMPr13p5XTJJALa7QoRJ1NUWgNcnmhWVgLsQEDr",
+    "legCount": 3,
+    "outAmount": "3947073",
+    "outMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "owner": "GH6Sn8jt4CbQgHxqpTm3MbpVSGR94uSEhChwm8vmphkP",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "5pcpYhqJyyHHxVaa9mvchML6Njro5Chxv7EFjHPSwxVpdyGAt6uVhd1xUBmXe7ztiuhS1iHFgXm67nwr7mem5itu",
+    "swapData": [
+      {
+        "amm": "Lifinity v2",
+        "inAmount": "27309941",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "17536596017",
+        "outMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
+      },
+      {
+        "amm": "Meteora",
+        "inAmount": "17536596017",
+        "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+        "outAmount": "3948209",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "Whirlpool",
+        "inAmount": "3948209",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "3947073",
+        "outMint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo"
+      }
+    ],
+    "timestamp": "2024-06-30T20:52:09.000Z",
+    "transferAuthority": "GH6Sn8jt4CbQgHxqpTm3MbpVSGR94uSEhChwm8vmphkP"
+  }
+]

@@ -1,52 +1,54 @@
-{
-  "exactOutAmount": "4439613",
-  "inAmount": "4439613",
-  "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-  "instruction": "route",
-  "lastAccount": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
-  "legCount": 5,
-  "outAmount": "4453650",
-  "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-  "owner": "46ECY5pTrN9Fbu5HdobxWBKxeAQXMo6uXTDwozrKadWZ",
-  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
-  "signature": "GCeRpjvfNXZB6BJFQChjpKycdKpRwQGS1BSwUvLjVpJj6NgdzzQACAWt89ZEfEXjeRSqzhDX8CHtzpMUnfJ7VMJ",
-  "swapData": [
-    {
-      "amm": "Cropper Whirlpool",
-      "inAmount": "4439613",
-      "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "outAmount": "32095199",
-      "outMint": "So11111111111111111111111111111111111111112"
-    },
-    {
-      "amm": "Raydium",
-      "inAmount": "32095199",
-      "inMint": "So11111111111111111111111111111111111111112",
-      "outAmount": "10767883562",
-      "outMint": "8m9fjYycXAFva1kScttQgsESVZT7yELhjZASqfHBuMa5"
-    },
-    {
-      "amm": "Meteora",
-      "inAmount": "10767883562",
-      "inMint": "8m9fjYycXAFva1kScttQgsESVZT7yELhjZASqfHBuMa5",
-      "outAmount": "13377864233688",
-      "outMint": "3C3pXiWCKr3BFEKHkWzuHWmcbYWAoGLE26BTmFHtTBj4"
-    },
-    {
-      "amm": "Raydium CP",
-      "inAmount": "13377864233688",
-      "inMint": "3C3pXiWCKr3BFEKHkWzuHWmcbYWAoGLE26BTmFHtTBj4",
-      "outAmount": "6428459881",
-      "outMint": "J5tzd1ww1V1qrgDUQHVCGqpmpbnEnjzGs9LAqJxwkNde"
-    },
-    {
-      "amm": "FluxBeam",
-      "inAmount": "6428459881",
-      "inMint": "J5tzd1ww1V1qrgDUQHVCGqpmpbnEnjzGs9LAqJxwkNde",
-      "outAmount": "4453650",
-      "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-    }
-  ],
-  "timestamp": "2024-07-11T16:40:26.000Z",
-  "transferAuthority": "46ECY5pTrN9Fbu5HdobxWBKxeAQXMo6uXTDwozrKadWZ"
-}
+[
+  {
+    "exactOutAmount": "4439613",
+    "inAmount": "4439613",
+    "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "instruction": "route",
+    "lastAccount": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+    "legCount": 5,
+    "outAmount": "4453650",
+    "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "owner": "46ECY5pTrN9Fbu5HdobxWBKxeAQXMo6uXTDwozrKadWZ",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "GCeRpjvfNXZB6BJFQChjpKycdKpRwQGS1BSwUvLjVpJj6NgdzzQACAWt89ZEfEXjeRSqzhDX8CHtzpMUnfJ7VMJ",
+    "swapData": [
+      {
+        "amm": "Cropper Whirlpool",
+        "inAmount": "4439613",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "32095199",
+        "outMint": "So11111111111111111111111111111111111111112"
+      },
+      {
+        "amm": "Raydium",
+        "inAmount": "32095199",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "10767883562",
+        "outMint": "8m9fjYycXAFva1kScttQgsESVZT7yELhjZASqfHBuMa5"
+      },
+      {
+        "amm": "Meteora",
+        "inAmount": "10767883562",
+        "inMint": "8m9fjYycXAFva1kScttQgsESVZT7yELhjZASqfHBuMa5",
+        "outAmount": "13377864233688",
+        "outMint": "3C3pXiWCKr3BFEKHkWzuHWmcbYWAoGLE26BTmFHtTBj4"
+      },
+      {
+        "amm": "Raydium CP",
+        "inAmount": "13377864233688",
+        "inMint": "3C3pXiWCKr3BFEKHkWzuHWmcbYWAoGLE26BTmFHtTBj4",
+        "outAmount": "6428459881",
+        "outMint": "J5tzd1ww1V1qrgDUQHVCGqpmpbnEnjzGs9LAqJxwkNde"
+      },
+      {
+        "amm": "FluxBeam",
+        "inAmount": "6428459881",
+        "inMint": "J5tzd1ww1V1qrgDUQHVCGqpmpbnEnjzGs9LAqJxwkNde",
+        "outAmount": "4453650",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      }
+    ],
+    "timestamp": "2024-07-11T16:40:26.000Z",
+    "transferAuthority": "46ECY5pTrN9Fbu5HdobxWBKxeAQXMo6uXTDwozrKadWZ"
+  }
+]

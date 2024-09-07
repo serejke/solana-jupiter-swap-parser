@@ -1,31 +1,33 @@
-{
-  "exactOutAmount": "35792840",
-  "inAmount": "21466338267",
-  "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
-  "instruction": "route",
-  "lastAccount": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-  "legCount": 2,
-  "outAmount": "35700000",
-  "outMint": "So11111111111111111111111111111111111111112",
-  "owner": "7eCimQLMWipNjqr3DjvrfXRNuaFZXuSfRofqvwMvvpz2",
-  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
-  "signature": "5SnGKXqNQ6zYGfNHQwHWwRtbxnYHUHLbANXgpvCLuXD1LA5paStRBcuXwu2T5eM9xsVWFQTzeUNwPWx6UAQhUb2t",
-  "swapData": [
-    {
-      "amm": "Saros",
-      "inAmount": "21466338267",
-      "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
-      "outAmount": "4939254",
-      "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-    },
-    {
-      "amm": "Phoenix",
-      "inAmount": "4939254",
-      "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-      "outAmount": "35700000",
-      "outMint": "So11111111111111111111111111111111111111112"
-    }
-  ],
-  "timestamp": "2024-07-12T14:05:55.000Z",
-  "transferAuthority": "FMFot66s6R4bxoWAtYjf2Vd8cVQAc5ewiY2KMc5deoEh"
-}
+[
+  {
+    "exactOutAmount": "35792840",
+    "inAmount": "21466338267",
+    "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "instruction": "route",
+    "lastAccount": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+    "legCount": 2,
+    "outAmount": "35700000",
+    "outMint": "So11111111111111111111111111111111111111112",
+    "owner": "7eCimQLMWipNjqr3DjvrfXRNuaFZXuSfRofqvwMvvpz2",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "5SnGKXqNQ6zYGfNHQwHWwRtbxnYHUHLbANXgpvCLuXD1LA5paStRBcuXwu2T5eM9xsVWFQTzeUNwPWx6UAQhUb2t",
+    "swapData": [
+      {
+        "amm": "Saros",
+        "inAmount": "21466338267",
+        "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+        "outAmount": "4939254",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "Phoenix",
+        "inAmount": "4939254",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "35700000",
+        "outMint": "So11111111111111111111111111111111111111112"
+      }
+    ],
+    "timestamp": "2024-07-12T14:05:55.000Z",
+    "transferAuthority": "FMFot66s6R4bxoWAtYjf2Vd8cVQAc5ewiY2KMc5deoEh"
+  }
+]

@@ -1,31 +1,33 @@
-{
-  "exactOutAmount": "487290180554",
-  "inAmount": "15069582258115",
-  "inMint": "GSVNwjdHA3CVQGvHSgPouTDh3imXyN9jdc6CJ38apump",
-  "instruction": "route",
-  "lastAccount": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1",
-  "legCount": 2,
-  "outAmount": "502931533449",
-  "outMint": "6SfbYzsuXVdTfTd6Hq81tBN1GRPjF6MTxAudhdZHpump",
-  "owner": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1",
-  "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
-  "signature": "5LjySibknku7FDcaM3YBV49sgCYqcm6ibFSV2rtcyU6ZVxwDLwPTpykajLykGHwpWaECtFkkkR4ck9HXLRrSVzqK",
-  "swapData": [
-    {
-      "amm": "Pump.Fun",
-      "inAmount": "15069582258115",
-      "inMint": "GSVNwjdHA3CVQGvHSgPouTDh3imXyN9jdc6CJ38apump",
-      "outAmount": "431149654",
-      "outMint": "So11111111111111111111111111111111111111112"
-    },
-    {
-      "amm": "Raydium",
-      "inAmount": "431149654",
-      "inMint": "So11111111111111111111111111111111111111112",
-      "outAmount": "502931533449",
-      "outMint": "6SfbYzsuXVdTfTd6Hq81tBN1GRPjF6MTxAudhdZHpump"
-    }
-  ],
-  "timestamp": "2024-09-04T22:37:29.000Z",
-  "transferAuthority": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1"
-}
+[
+  {
+    "exactOutAmount": "487290180554",
+    "inAmount": "15069582258115",
+    "inMint": "GSVNwjdHA3CVQGvHSgPouTDh3imXyN9jdc6CJ38apump",
+    "instruction": "route",
+    "lastAccount": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1",
+    "legCount": 2,
+    "outAmount": "502931533449",
+    "outMint": "6SfbYzsuXVdTfTd6Hq81tBN1GRPjF6MTxAudhdZHpump",
+    "owner": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "5LjySibknku7FDcaM3YBV49sgCYqcm6ibFSV2rtcyU6ZVxwDLwPTpykajLykGHwpWaECtFkkkR4ck9HXLRrSVzqK",
+    "swapData": [
+      {
+        "amm": "Pump.Fun",
+        "inAmount": "15069582258115",
+        "inMint": "GSVNwjdHA3CVQGvHSgPouTDh3imXyN9jdc6CJ38apump",
+        "outAmount": "431149654",
+        "outMint": "So11111111111111111111111111111111111111112"
+      },
+      {
+        "amm": "Raydium",
+        "inAmount": "431149654",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "502931533449",
+        "outMint": "6SfbYzsuXVdTfTd6Hq81tBN1GRPjF6MTxAudhdZHpump"
+      }
+    ],
+    "timestamp": "2024-09-04T22:37:29.000Z",
+    "transferAuthority": "3B8LE11zN3eHsdMtMbZYZXQXfB1hsph5JJqKBPSp1Kc1"
+  }
+]

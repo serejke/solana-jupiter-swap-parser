@@ -4,6 +4,11 @@ import { getEvents } from "./lib/get-events";
 import { AMM_TYPES, JUPITER_V6_PROGRAM_ID } from "./constants";
 import { FeeEvent, SwapEvent, TransactionWithMeta } from "./types";
 import { IDL, Jupiter } from "./idl/jupiter";
+import {
+  flattenInstructionsWithStackTracePaths,
+  ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
+} from './transaction/instruction-stack-trace-path';
+import { ParsedTransactionWithMeta } from '@solana/web3.js';
 
 export { getTokenMap } from "./lib/utils";
 export { TransactionWithMeta };
@@ -14,7 +19,10 @@ export const program = new Program<Jupiter>(
   {} as Provider
 );
 
+const parser = new InstructionParser();
+
 export type SwapAttributes = {
+  // @deprecated use transferAuthority instead
   owner: string;
   transferAuthority: string;
   programId: string;
@@ -44,22 +52,51 @@ const reduceEventData = <T>(events: Event[], name: string) =>
     return acc;
   }, new Array<T>());
 
-// TODO: currently, this only parses the first swap instruction from a transaction, but in fact there may be multiple swaps,
-//  Example transaction: https://solscan.io/tx/QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY
 export async function extract(
   signature: string,
-  tx: TransactionWithMeta,
+  tx: ParsedTransactionWithMeta,
   blockTime?: number
-): Promise<SwapAttributes | undefined> {
-  const programId = JUPITER_V6_PROGRAM_ID;
-
+): Promise<SwapAttributes[]> {
   const logMessages = tx.meta.logMessages;
   if (!logMessages) {
     throw new Error("Missing log messages...");
   }
 
-  const parser = new InstructionParser(programId);
-  const events = getEvents(program, tx);
+  const swaps: SwapAttributes[] = [];
+
+  const instructionsWithStackTracePaths = flattenInstructionsWithStackTracePaths(signature, tx);
+  for (let instructionIndex = 0; instructionIndex < instructionsWithStackTracePaths.length; ) {
+    const routingInstruction = instructionsWithStackTracePaths[instructionIndex];
+    if (parser.isRoutingInstruction(routingInstruction)) {
+      let nextInstructionIndex = instructionIndex + 1;
+      while (nextInstructionIndex < instructionsWithStackTracePaths.length) {
+        const nextInstruction = instructionsWithStackTracePaths[nextInstructionIndex];
+        if (parser.isAnyNonEventJupiterInstruction(nextInstruction)) {
+          // Next Jupiter swap boundary.
+          break;
+        }
+        nextInstructionIndex++;
+      }
+      const relevantInstructions = instructionsWithStackTracePaths.slice(instructionIndex, nextInstructionIndex);
+      instructionIndex = nextInstructionIndex;
+
+      const swapAttributes = parse(signature, tx.transaction.message.accountKeys[0].pubkey.toBase58(), relevantInstructions, blockTime);
+      swaps.push(swapAttributes);
+      continue;
+    }
+    instructionIndex++;
+  }
+  return swaps;
+}
+
+function parse(
+    signature: string,
+    transactionSigner: string,
+    allRelevantInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[],
+    blockTime?: number,
+): SwapAttributes | undefined {
+
+  const events = getEvents(program, allRelevantInstructions);
 
   const swapEvents = reduceEventData<SwapEvent>(events, "SwapEvent");
   const feeEvent = reduceEventData<FeeEvent>(events, "FeeEvent")[0];
@@ -69,14 +106,13 @@ export async function extract(
     return;
   }
 
-  const swapData = await parseSwapEvents(swapEvents);
-  const instructions = parser.getInstructions(tx);
+  const swapData = parseSwapEvents(swapEvents);
   const [initialPositions, finalPositions] =
-    parser.getInitialAndFinalSwapPositions(instructions);
+      parser.getInitialAndFinalSwapPositions(allRelevantInstructions);
 
   const inMint = swapData[initialPositions[0]].inMint;
   const inSwapData = swapData.filter(
-    (swap, index) => initialPositions.includes(index) && swap.inMint === inMint
+      (swap, index) => initialPositions.includes(index) && swap.inMint === inMint
   );
   const inAmount = inSwapData.reduce((acc, curr) => {
     return acc + BigInt(curr.inAmount);
@@ -84,7 +120,7 @@ export async function extract(
 
   const outMint = swapData[finalPositions[0]].outMint;
   const outSwapData = swapData.filter(
-    (swap, index) => finalPositions.includes(index) && swap.outMint === outMint
+      (swap, index) => finalPositions.includes(index) && swap.outMint === outMint
   );
   const outAmount = outSwapData.reduce((acc, curr) => {
     return acc + BigInt(curr.outAmount);
@@ -93,13 +129,13 @@ export async function extract(
   const swap = {} as SwapAttributes;
 
   const [instructionName, transferAuthority, lastAccount] =
-    parser.getInstructionNameAndTransferAuthorityAndLastAccount(instructions);
+      parser.getInstructionNameAndTransferAuthorityAndLastAccount(allRelevantInstructions);
 
   swap.transferAuthority = transferAuthority;
   swap.lastAccount = lastAccount;
   swap.instruction = instructionName;
-  swap.owner = tx.transaction.message.accountKeys[0].pubkey.toBase58();
-  swap.programId = programId.toBase58();
+  swap.owner = transactionSigner;
+  swap.programId = JUPITER_V6_PROGRAM_ID.toBase58();
   swap.signature = signature;
   swap.timestamp = new Date(new Date((blockTime ?? 0) * 1000).toISOString());
   swap.legCount = swapEvents.length;
@@ -110,12 +146,12 @@ export async function extract(
   swap.outAmount = outAmount;
   swap.outMint = outMint;
 
-  const exactOutAmount = parser.getExactOutAmount(instructions);
+  const exactOutAmount = parser.getExactOutAmount(allRelevantInstructions);
   if (exactOutAmount) {
     swap.exactOutAmount = BigInt(exactOutAmount);
   }
 
-  const exactInAmount = parser.getExactInAmount(instructions);
+  const exactInAmount = parser.getExactInAmount(allRelevantInstructions);
   if (exactInAmount) {
     swap.exactInAmount = BigInt(exactInAmount);
   }
@@ -131,7 +167,7 @@ export async function extract(
   return swap;
 }
 
-async function parseSwapEvents(
+function parseSwapEvents(
   swapEvents: SwapEvent[]
 ) {
   return swapEvents.map(extractSwapData);

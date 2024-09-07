@@ -1,0 +1,64 @@
+[
+  {
+    "exactOutAmount": "25198786",
+    "inAmount": "2000000",
+    "inMint": "So11111111111111111111111111111111111111112",
+    "instruction": "sharedAccountsRoute",
+    "lastAccount": "9nnLbotNTcUhvbrsA6Mdkx45Sm82G35zo28AqUvjExn8",
+    "legCount": 1,
+    "outAmount": "25198786",
+    "outMint": "26KMQVgDUoB6rEfnJ51yAABWWJND8uMtpnQgsHQ64Udr",
+    "owner": "4xcazAEdtaz4qm9nDA2owMuAG7M8pLr5J49pN46ywSTk",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY",
+    "swapData": [
+      {
+        "amm": "Raydium",
+        "inAmount": "2000000",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "25198786",
+        "outMint": "26KMQVgDUoB6rEfnJ51yAABWWJND8uMtpnQgsHQ64Udr"
+      }
+    ],
+    "timestamp": "2024-06-20T13:35:39.000Z",
+    "transferAuthority": "4xcazAEdtaz4qm9nDA2owMuAG7M8pLr5J49pN46ywSTk"
+  },
+  {
+    "exactOutAmount": "2007000",
+    "inAmount": "25198786",
+    "inMint": "26KMQVgDUoB6rEfnJ51yAABWWJND8uMtpnQgsHQ64Udr",
+    "instruction": "sharedAccountsRoute",
+    "lastAccount": "BLGsJzPU8UngoHz481jbFeC7jBNHhYCH2YF6L2nXoZHs",
+    "legCount": 3,
+    "outAmount": "2005545",
+    "outMint": "So11111111111111111111111111111111111111112",
+    "owner": "4xcazAEdtaz4qm9nDA2owMuAG7M8pLr5J49pN46ywSTk",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY",
+    "swapData": [
+      {
+        "amm": "Meteora DLMM",
+        "inAmount": "25198786",
+        "inMint": "26KMQVgDUoB6rEfnJ51yAABWWJND8uMtpnQgsHQ64Udr",
+        "outAmount": "798528779984",
+        "outMint": "6U48jtR53ZK3E1MozLrpwJDTrtj74uuFhMGNzGY18YPu"
+      },
+      {
+        "amm": "Meteora",
+        "inAmount": "798528779984",
+        "inMint": "6U48jtR53ZK3E1MozLrpwJDTrtj74uuFhMGNzGY18YPu",
+        "outAmount": "271210",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "Cropper Whirlpool",
+        "inAmount": "271210",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "2005545",
+        "outMint": "So11111111111111111111111111111111111111112"
+      }
+    ],
+    "timestamp": "2024-06-20T13:35:39.000Z",
+    "transferAuthority": "4xcazAEdtaz4qm9nDA2owMuAG7M8pLr5J49pN46ywSTk"
+  }
+]

@@ -15,13 +15,13 @@ export async function parseJupiterSwaps(
     }
   }
 
-  const swap = await extract(
+  const swaps = await extract(
     signature,
     tx,
     tx.blockTime
   );
 
-  if (!swap) {
+  if (swaps.length === 0) {
     return {
       type: 'noSwaps',
       signature
@@ -32,19 +32,20 @@ export async function parseJupiterSwaps(
 
   const fee = tx.meta.fee;
 
-  const swapJsonFriendly: SwapAttributesJsonFriendly = {
-    ...swap,
-    inAmount: swap.inAmount.toString(),
-    outAmount: swap.outAmount.toString(),
-    exactInAmount: swap.exactInAmount?.toString(),
-    exactOutAmount: swap.exactOutAmount?.toString(),
-    feeAmount: swap.feeAmount?.toString(),
-    timestamp: swap.timestamp.getTime() / 1000,
-  }
+  const swapsJsonFriendly: SwapAttributesJsonFriendly[] = swaps.map((swap) => ({
+      ...swap,
+      inAmount: swap.inAmount.toString(),
+      outAmount: swap.outAmount.toString(),
+      exactInAmount: swap.exactInAmount?.toString(),
+      exactOutAmount: swap.exactOutAmount?.toString(),
+      feeAmount: swap.feeAmount?.toString(),
+      timestamp: swap.timestamp.getTime() / 1000,
+    }
+  ))
 
   return {
     type: 'parsed',
-    swaps: [swapJsonFriendly],
+    swaps: swapsJsonFriendly,
     signature,
     fee
   }

@@ -1,30 +1,26 @@
 import { Event, Program, utils } from "@coral-xyz/anchor";
 import { JUPITER_V6_PROGRAM_ID } from "../constants";
-import { TransactionWithMeta } from "../types";
+import {
+  ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
+} from '../transaction/instruction-stack-trace-path';
 
 export function getEvents(
   program: Program,
-  transactionResponse: TransactionWithMeta
+  allRelevantInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[]
 ) {
-  let events: Event[] = [];
+  const events: Event[] = [];
 
-  if (transactionResponse && transactionResponse.meta) {
-    let { meta } = transactionResponse;
+  for (const iix of allRelevantInstructions) {
+    if (!iix.programId.equals(JUPITER_V6_PROGRAM_ID)) continue;
+    if (!("data" in iix)) continue; // Guard in case it is a parsed decoded instruction
 
-    meta.innerInstructions?.forEach((ix) => {
-      ix.instructions.forEach((iix) => {
-        if (!iix.programId.equals(JUPITER_V6_PROGRAM_ID)) return;
-        if (!("data" in iix)) return; // Guard in case it is a parsed decoded instruction
+    const ixData = utils.bytes.bs58.decode(iix.data);
+    const eventData = utils.bytes.base64.encode(ixData.subarray(8));
+    const event = program.coder.events.decode(eventData);
 
-        const ixData = utils.bytes.bs58.decode(iix.data);
-        const eventData = utils.bytes.base64.encode(ixData.subarray(8));
-        const event = program.coder.events.decode(eventData);
+    if (!event) continue;
 
-        if (!event) return;
-
-        events.push(event);
-      });
-    });
+    events.push(event);
   }
 
   return events;

@@ -39,6 +39,12 @@ describe("instruction parser", () => {
     test("verify transaction with Marine Finance LiquidUnstake instruction", async () => {
         await compare("3wsLbgu88DjHmfrFCyS5r5NJyyJaYjC9xUQYuSiJEUNBLxKyuEqR9b6WnbrScWaWVKBbCHdxb6TQuB16Ri3pqkzb");
     });
+
+    test("verify transaction multiple Jupiter swaps", async () => {
+        await compare("5Rt3HkbvPRtQZ2FKxi8mAbsrTSLUQmb5SaphqD32pntbC3hgxZV9PayGL6pZGMSVXWBrrCAaw8uhDSR6R8J5bkgy");
+
+        await compare("QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY");
+    });
 });
 
 async function compare(signature: string) {

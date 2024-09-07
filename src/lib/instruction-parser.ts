@@ -1,24 +1,49 @@
-import { ParsedInstruction, PublicKey } from "@solana/web3.js";
-import { BorshCoder, Program } from "@coral-xyz/anchor";
+import { BorshCoder } from "@coral-xyz/anchor";
 import { IDL } from "../idl/jupiter";
-import { PartialInstruction, RoutePlan, TransactionWithMeta } from "../types";
+import { RoutePlan } from "../types";
+import {
+  ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
+} from '../transaction/instruction-stack-trace-path';
+import { JUPITER_V6_PROGRAM_ID } from '../constants';
 
 export class InstructionParser {
-  private coder: BorshCoder;
-  private programId: PublicKey;
+  private readonly coder: BorshCoder;
 
-  constructor(programId: PublicKey) {
-    this.programId = programId;
+  constructor() {
     this.coder = new BorshCoder(IDL);
   }
 
+  isRoutingInstruction(
+      instruction: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
+  ): boolean {
+    if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
+      return false;
+    }
+    if (!("data" in instruction)) return false; // Guard in case it is a parsed decoded instruction
+    const ix = this.coder.instruction.decode(instruction.data, "base58");
+    return ix && this.isRouting(ix.name);
+  }
+
+  isAnyNonEventJupiterInstruction(
+      instruction: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
+  ): boolean {
+    if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
+      return false;
+    }
+    const parentProgramId = instruction.instructionStackTracePath.getParentProgramId();
+    return parentProgramId === undefined || !parentProgramId.equals(JUPITER_V6_PROGRAM_ID);
+  }
+
+
+
   getInstructionNameAndTransferAuthorityAndLastAccount(
-    instructions: PartialInstruction[]
+    instructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[]
   ) {
     for (const instruction of instructions) {
-      if (!instruction.programId.equals(this.programId)) {
+      if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
         continue;
       }
+      if (!("data" in instruction)) return; // Guard in case it is a parsed decoded instruction
 
       const ix = this.coder.instruction.decode(instruction.data, "base58");
 
@@ -51,32 +76,13 @@ export class InstructionParser {
     }
   }
 
-  // For CPI, we have to also check for innerInstructions.
-  getInstructions(tx: TransactionWithMeta): PartialInstruction[] {
-    const parsedInstructions: PartialInstruction[] = [];
-    for (const instruction of tx.transaction.message.instructions) {
-      if (instruction.programId.equals(this.programId)) {
-        parsedInstructions.push(instruction as any);
-      }
-    }
-
-    for (const instructions of tx.meta.innerInstructions) {
-      for (const instruction of instructions.instructions) {
-        if (instruction.programId.equals(this.programId)) {
-          parsedInstructions.push(instruction as any);
-        }
-      }
-    }
-
-    return parsedInstructions;
-  }
-
   // Extract the position of the initial and final swap from the swap array.
-  getInitialAndFinalSwapPositions(instructions: PartialInstruction[]) {
+  getInitialAndFinalSwapPositions(instructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[]) {
     for (const instruction of instructions) {
-      if (!instruction.programId.equals(this.programId)) {
+      if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
         continue;
       }
+      if (!("data" in instruction)) continue;
 
       const ix = this.coder.instruction.decode(instruction.data, "base58");
       // This will happen because now event is also an CPI instruction.
@@ -119,9 +125,9 @@ export class InstructionParser {
     }
   }
 
-  getExactOutAmount(instructions: (ParsedInstruction | PartialInstruction)[]) {
+  getExactOutAmount(instructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[]) {
     for (const instruction of instructions) {
-      if (!instruction.programId.equals(this.programId)) {
+      if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
         continue;
       }
       if (!("data" in instruction)) continue; // Guard in case it is a parsed decoded instruction, should be impossible
@@ -136,9 +142,9 @@ export class InstructionParser {
     return;
   }
 
-  getExactInAmount(instructions: (ParsedInstruction | PartialInstruction)[]) {
+  getExactInAmount(instructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[]) {
     for (const instruction of instructions) {
-      if (!instruction.programId.equals(this.programId)) {
+      if (!instruction.programId.equals(JUPITER_V6_PROGRAM_ID)) {
         continue;
       }
       if (!("data" in instruction)) continue; // Guard in case it is a parsed decoded instruction, should be impossible

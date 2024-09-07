@@ -1,0 +1,57 @@
+[
+  {
+    "exactOutAmount": "29666093455",
+    "inAmount": "50000000",
+    "inMint": "So11111111111111111111111111111111111111112",
+    "instruction": "route",
+    "lastAccount": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "legCount": 1,
+    "outAmount": "29666093455",
+    "outMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "owner": "8yZySK1mwxaajGNhK74pF2VSJvfYvgD7kocnxXvvEYRz",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "5Rt3HkbvPRtQZ2FKxi8mAbsrTSLUQmb5SaphqD32pntbC3hgxZV9PayGL6pZGMSVXWBrrCAaw8uhDSR6R8J5bkgy",
+    "swapData": [
+      {
+        "amm": "Meteora DLMM",
+        "inAmount": "50000000",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "29666093455",
+        "outMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
+      }
+    ],
+    "timestamp": "2024-07-12T05:17:10.000Z",
+    "transferAuthority": "8yZySK1mwxaajGNhK74pF2VSJvfYvgD7kocnxXvvEYRz"
+  },
+  {
+    "exactOutAmount": "50083346",
+    "inAmount": "29666093455",
+    "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "instruction": "sharedAccountsRoute",
+    "lastAccount": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "legCount": 2,
+    "outAmount": "49936501",
+    "outMint": "So11111111111111111111111111111111111111112",
+    "owner": "8yZySK1mwxaajGNhK74pF2VSJvfYvgD7kocnxXvvEYRz",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "5Rt3HkbvPRtQZ2FKxi8mAbsrTSLUQmb5SaphqD32pntbC3hgxZV9PayGL6pZGMSVXWBrrCAaw8uhDSR6R8J5bkgy",
+    "swapData": [
+      {
+        "amm": "Lifinity v2",
+        "inAmount": "29666093455",
+        "inMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+        "outAmount": "6766283",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "Meteora DLMM",
+        "inAmount": "6766283",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "49936501",
+        "outMint": "So11111111111111111111111111111111111111112"
+      }
+    ],
+    "timestamp": "2024-07-12T05:17:10.000Z",
+    "transferAuthority": "8yZySK1mwxaajGNhK74pF2VSJvfYvgD7kocnxXvvEYRz"
+  }
+]
