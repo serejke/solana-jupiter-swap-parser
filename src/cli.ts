@@ -25,7 +25,7 @@ program
       console.log("Failed transaction", tx.meta.err);
     }
 
-    const result = await extract(signature, tx, tx.blockTime);
+    const result = await extract(tx);
 
     console.log(result);
   });
@@ -80,7 +80,7 @@ program
             }
 
             // Call the extract function
-            const result = await extract(signature, tx, tx.blockTime);
+            const result = await extract(tx);
 
             // Save the result to a JSON file
             const resultFilePath = path.join(resultsDir, `${signature}.json`);

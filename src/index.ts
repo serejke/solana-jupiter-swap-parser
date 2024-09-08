@@ -2,16 +2,16 @@ import { Event, Program, Provider } from "@coral-xyz/anchor";
 import { InstructionParser } from "./lib/instruction-parser";
 import { getEvents } from "./lib/get-events";
 import { AMM_TYPES, JUPITER_V6_PROGRAM_ID } from "./constants";
-import { FeeEvent, SwapEvent, TransactionWithMeta } from "./types";
+import { FeeEvent, SwapEvent } from "./types";
 import { IDL, Jupiter } from "./idl/jupiter";
 import {
   flattenInstructionsWithStackTracePaths,
   ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath
 } from './transaction/instruction-stack-trace-path';
 import { ParsedTransactionWithMeta } from '@solana/web3.js';
+import {getSignature} from "./utils/signature-utils";
 
 export { getTokenMap } from "./lib/utils";
-export { TransactionWithMeta };
 
 export const program = new Program<Jupiter>(
   IDL,
@@ -53,9 +53,7 @@ const reduceEventData = <T>(events: Event[], name: string) =>
   }, new Array<T>());
 
 export async function extract(
-  signature: string,
-  tx: ParsedTransactionWithMeta,
-  blockTime?: number
+  tx: ParsedTransactionWithMeta
 ): Promise<SwapAttributes[]> {
   const logMessages = tx.meta.logMessages;
   if (!logMessages) {
@@ -64,7 +62,7 @@ export async function extract(
 
   const swaps: SwapAttributes[] = [];
 
-  const instructionsWithStackTracePaths = flattenInstructionsWithStackTracePaths(signature, tx);
+  const instructionsWithStackTracePaths = flattenInstructionsWithStackTracePaths(tx);
   for (let instructionIndex = 0; instructionIndex < instructionsWithStackTracePaths.length; ) {
     const routingInstruction = instructionsWithStackTracePaths[instructionIndex];
     if (parser.isRoutingInstruction(routingInstruction)) {
@@ -80,7 +78,7 @@ export async function extract(
       const relevantInstructions = instructionsWithStackTracePaths.slice(instructionIndex, nextInstructionIndex);
       instructionIndex = nextInstructionIndex;
 
-      const swapAttributes = parse(signature, tx.transaction.message.accountKeys[0].pubkey.toBase58(), relevantInstructions, blockTime);
+      const swapAttributes = parse(relevantInstructions, tx);
       swaps.push(swapAttributes);
       continue;
     }
@@ -90,13 +88,11 @@ export async function extract(
 }
 
 function parse(
-    signature: string,
-    transactionSigner: string,
-    allRelevantInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[],
-    blockTime?: number,
+    relevantInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[],
+    tx: ParsedTransactionWithMeta,
 ): SwapAttributes | undefined {
 
-  const events = getEvents(program, allRelevantInstructions);
+  const events = getEvents(program, relevantInstructions);
 
   const swapEvents = reduceEventData<SwapEvent>(events, "SwapEvent");
   const feeEvent = reduceEventData<FeeEvent>(events, "FeeEvent")[0];
@@ -108,7 +104,7 @@ function parse(
 
   const swapData = parseSwapEvents(swapEvents);
   const [initialPositions, finalPositions] =
-      parser.getInitialAndFinalSwapPositions(allRelevantInstructions);
+      parser.getInitialAndFinalSwapPositions(relevantInstructions);
 
   const inMint = swapData[initialPositions[0]].inMint;
   const inSwapData = swapData.filter(
@@ -129,15 +125,15 @@ function parse(
   const swap = {} as SwapAttributes;
 
   const [instructionName, transferAuthority, lastAccount] =
-      parser.getInstructionNameAndTransferAuthorityAndLastAccount(allRelevantInstructions);
+      parser.getInstructionNameAndTransferAuthorityAndLastAccount(relevantInstructions);
 
   swap.transferAuthority = transferAuthority;
   swap.lastAccount = lastAccount;
   swap.instruction = instructionName;
-  swap.owner = transactionSigner;
+  swap.owner = tx.transaction.message.accountKeys[0].pubkey.toBase58();
   swap.programId = JUPITER_V6_PROGRAM_ID.toBase58();
-  swap.signature = signature;
-  swap.timestamp = new Date(new Date((blockTime ?? 0) * 1000).toISOString());
+  swap.signature = getSignature(tx);
+  swap.timestamp = new Date(new Date((tx.blockTime ?? 0) * 1000).toISOString());
   swap.legCount = swapEvents.length;
 
   swap.inAmount = inAmount;
@@ -146,12 +142,12 @@ function parse(
   swap.outAmount = outAmount;
   swap.outMint = outMint;
 
-  const exactOutAmount = parser.getExactOutAmount(allRelevantInstructions);
+  const exactOutAmount = parser.getExactOutAmount(relevantInstructions);
   if (exactOutAmount) {
     swap.exactOutAmount = BigInt(exactOutAmount);
   }
 
-  const exactInAmount = parser.getExactInAmount(allRelevantInstructions);
+  const exactInAmount = parser.getExactInAmount(relevantInstructions);
   if (exactInAmount) {
     swap.exactInAmount = BigInt(exactInAmount);
   }

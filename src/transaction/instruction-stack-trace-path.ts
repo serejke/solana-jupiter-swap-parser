@@ -1,4 +1,5 @@
 import { ParsedInstruction, ParsedTransactionWithMeta, PartiallyDecodedInstruction, PublicKey } from '@solana/web3.js';
+import {getSignature} from "../utils/signature-utils";
 
 export class InstructionStackTracePath {
   constructor(
@@ -115,7 +116,8 @@ function getInstructionStackHeight(signature: string, innerInstruction: ParsedIn
  * and preserves the `InstructionStackTracePath` for each instruction to identify its
  * location in the transaction stack trace.
  */
-export function flattenInstructionsWithStackTracePaths(signature: string, transaction: ParsedTransactionWithMeta): ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[] {
+export function flattenInstructionsWithStackTracePaths(transaction: ParsedTransactionWithMeta): ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[] {
+  const signature = getSignature(transaction);
   const parsedInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[] = [];
 
   const topLevelInstructions = transaction.transaction.message.instructions;

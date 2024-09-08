@@ -49,7 +49,7 @@ describe("instruction parser", () => {
 
 async function compare(signature: string) {
     const tx = await connection.getParsedTransaction(signature, { maxSupportedTransactionVersion: 0 });
-    const swapAttributes = await extract(signature, tx, tx.blockTime);
+    const swapAttributes = await extract(tx);
 
     const filePath = path.join(
         __dirname,
