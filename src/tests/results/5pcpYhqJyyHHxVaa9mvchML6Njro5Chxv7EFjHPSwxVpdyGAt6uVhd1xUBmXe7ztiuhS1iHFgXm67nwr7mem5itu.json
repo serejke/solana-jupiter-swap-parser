@@ -7,6 +7,7 @@
     "inAmount": "27309941",
     "inMint": "So11111111111111111111111111111111111111112",
     "instruction": "sharedAccountsRoute",
+    "instructionIdentifier": "#6 (JUP6L)",
     "lastAccount": "GjCj8ZMPr13p5XTJJALa7QoRJ1NUWgNcnmhWVgLsQEDr",
     "legCount": 3,
     "outAmount": "3947073",

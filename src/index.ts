@@ -10,6 +10,7 @@ import {
 } from './transaction/instruction-stack-trace-path';
 import { ParsedTransactionWithMeta } from '@solana/web3.js';
 import {getSignature} from "./utils/signature-utils";
+import {getInstructionIdentifierWithProgramIds} from "./transaction/instruction-identifier";
 
 export { getTokenMap } from "./lib/utils";
 
@@ -41,6 +42,7 @@ export type SwapAttributes = {
   feeAmount?: BigInt;
   feeMint?: string;
   tokenLedger?: string;
+  instructionIdentifier: string;
   lastAccount: string; // This can be a tracking account since we don't have a way to know we just log it the last account.
 };
 
@@ -78,7 +80,7 @@ export async function extract(
       const relevantInstructions = instructionsWithStackTracePaths.slice(instructionIndex, nextInstructionIndex);
       instructionIndex = nextInstructionIndex;
 
-      const swapAttributes = parse(relevantInstructions, tx);
+      const swapAttributes = parse(routingInstruction, relevantInstructions, tx);
       swaps.push(swapAttributes);
       continue;
     }
@@ -88,6 +90,7 @@ export async function extract(
 }
 
 function parse(
+    routingInstruction: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath,
     relevantInstructions: ParsedInstructionOrPartiallyDecodedInstructionWithStackTracePath[],
     tx: ParsedTransactionWithMeta,
 ): SwapAttributes | undefined {
@@ -135,6 +138,7 @@ function parse(
   swap.signature = getSignature(tx);
   swap.timestamp = new Date(new Date((tx.blockTime ?? 0) * 1000).toISOString());
   swap.legCount = swapEvents.length;
+  swap.instructionIdentifier = getInstructionIdentifierWithProgramIds(routingInstruction.instructionStackTracePath);
 
   swap.inAmount = inAmount;
   swap.inMint = inMint;
