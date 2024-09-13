@@ -2,7 +2,7 @@ import { describe, expect, test } from "@jest/globals";
 import { Connection } from "@solana/web3.js";
 import { readFile } from "fs/promises";
 import * as path from "path";
-import { extract } from '../index';
+import {extract, SwapAttributes} from '../index';
 
 // Make sure JSON.stringify works with BigInt
 BigInt.prototype["toJSON"] = function () {
@@ -45,11 +45,20 @@ describe("instruction parser", () => {
 
         await compare("QzA6iW9wJvnWSFx1AB5imT6W5HBEfTXsrmAfk7JV5h13JLKtYeEyiuAQSvveJweewWEB26WfKULN7zE131J4RaY");
     });
+
+    test("verify there is no 'cannot read undefined 'property' error", async () => {
+        await compare("3GSj4VMukTHdCUfk2RfsbUdFdKusYwJxTufTtHKDVm2JNjdDY9j3JqM3uz7SQ41n3x2n8VeJLMRMYkNTnzRrXHKo");
+    });
 });
 
 async function compare(signature: string) {
     const tx = await connection.getParsedTransaction(signature, { maxSupportedTransactionVersion: 0 });
-    const swapAttributes = await extract(tx);
+    let swapAttributes: SwapAttributes[];
+    try {
+        swapAttributes = await extract(tx);
+    } catch (e) {
+        console.error(e);
+    }
 
     const filePath = path.join(
         __dirname,

@@ -1,0 +1,33 @@
+[
+  {
+    "exactOutAmount": "314600000",
+    "inAmount": "638333333",
+    "inMint": "So11111111111111111111111111111111111111112",
+    "instruction": "sharedAccountsRoute",
+    "instructionIdentifier": "#4 (JUP6L)",
+    "lastAccount": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "legCount": 2,
+    "outAmount": "314500000",
+    "outMint": "METAewgxyPbgwsseH8T16a39CQ5VyVxZi9zXiDPY18m",
+    "owner": "DCAKxn5PFNN1mBREPWGdk1RXg5aVH9rPErLfBFEi2Emb",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "3GSj4VMukTHdCUfk2RfsbUdFdKusYwJxTufTtHKDVm2JNjdDY9j3JqM3uz7SQ41n3x2n8VeJLMRMYkNTnzRrXHKo",
+    "swapData": [
+      {
+        "inAmount": "638333333",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "86759398",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "Openbook v2",
+        "inAmount": "86759398",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "314500000",
+        "outMint": "METAewgxyPbgwsseH8T16a39CQ5VyVxZi9zXiDPY18m"
+      }
+    ],
+    "timestamp": "2024-09-12T22:16:40.000Z",
+    "transferAuthority": "DCAKxn5PFNN1mBREPWGdk1RXg5aVH9rPErLfBFEi2Emb"
+  }
+]
