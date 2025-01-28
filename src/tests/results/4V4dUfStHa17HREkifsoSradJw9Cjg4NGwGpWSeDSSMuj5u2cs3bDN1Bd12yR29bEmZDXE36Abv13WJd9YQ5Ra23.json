@@ -1,0 +1,40 @@
+[
+  {
+    "exactOutAmount": "2945559597",
+    "inAmount": "2945529428",
+    "inMint": "So11111111111111111111111111111111111111112",
+    "instruction": "route",
+    "instructionIdentifier": "#2 (JUP6L)",
+    "lastAccount": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "legCount": 3,
+    "outAmount": "2945567777",
+    "outMint": "So11111111111111111111111111111111111111112",
+    "owner": "aeLWTYsNGx6fnSJfHhwxq5z8JSGxoVCaEPS7iL8qGoM",
+    "programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+    "signature": "4V4dUfStHa17HREkifsoSradJw9Cjg4NGwGpWSeDSSMuj5u2cs3bDN1Bd12yR29bEmZDXE36Abv13WJd9YQ5Ra23",
+    "swapData": [
+      {
+        "inAmount": "2945529428",
+        "inMint": "So11111111111111111111111111111111111111112",
+        "outAmount": "675829797",
+        "outMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "amm": "SolFi",
+        "inAmount": "675829797",
+        "inMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "outAmount": "676092567",
+        "outMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
+      },
+      {
+        "amm": "Raydium CLMM",
+        "inAmount": "676092567",
+        "inMint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "outAmount": "2945567777",
+        "outMint": "So11111111111111111111111111111111111111112"
+      }
+    ],
+    "timestamp": "2025-01-28T21:29:26.000Z",
+    "transferAuthority": "aeLWTYsNGx6fnSJfHhwxq5z8JSGxoVCaEPS7iL8qGoM"
+  }
+]

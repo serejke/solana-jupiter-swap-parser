@@ -1209,10 +1209,60 @@ export type Jupiter = {
             name: "Obric";
             fields: [
               {
-                name: "x_to_y";
+                name: "xToY";
                 type: "bool";
               }
             ];
+          },
+          {
+            name: "FoxBuyFromEstimatedCost";
+          },
+          {
+            name: "FoxClaimPartial";
+            fields: [
+              {
+                name: "isY";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "SolFi";
+            fields: [
+              {
+                name: "isQuoteToBase";
+                type: "bool";
+              }
+            ];
+          },
+          {
+            name: "SolayerDelegateNoInit",
+          },
+          {
+            name: "SolayerUnDelegateNoInit";
+          },
+          {
+            name: "TokenMill";
+            fields: [
+              {
+                name: "side";
+                type: {
+                  defined: "Side";
+                }
+              }
+            ];
+          },
+          {
+            name: "DaoFunBuy";
+          },
+          {
+            name: "DaoFunSell";
+          },
+          {
+            name: "ZeroFi";
+          },
+          {
+            name: "WooFi";
           }
         ];
       };
@@ -2628,11 +2678,61 @@ export const IDL: Jupiter = {
             name: "Obric",
             fields: [
               {
-                name: "x_to_y",
+                name: "xToY",
                 type: "bool",
               },
             ],
           },
+          {
+            name: "FoxBuyFromEstimatedCost",
+          },
+          {
+            name: "FoxClaimPartial",
+            fields: [
+              {
+                name: "isY",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "SolFi",
+            fields: [
+              {
+                name: "isQuoteToBase",
+                type: "bool",
+              },
+            ],
+          },
+          {
+            name: "SolayerDelegateNoInit",
+          },
+          {
+            name: "SolayerUnDelegateNoInit",
+          },
+          {
+            name: "TokenMill",
+            fields: [
+              {
+                name: "side",
+                type: {
+                  defined: "Side",
+                }
+              }
+            ],
+          },
+          {
+            name: "DaoFunBuy",
+          },
+          {
+            name: "DaoFunSell",
+          },
+          {
+            name: "ZeroFi"
+          },
+          {
+            name: "WooFi"
+          }
         ],
       },
     },

@@ -49,6 +49,10 @@ describe("instruction parser", () => {
     test("verify there is no 'cannot read undefined 'property' error", async () => {
         await compare("3GSj4VMukTHdCUfk2RfsbUdFdKusYwJxTufTtHKDVm2JNjdDY9j3JqM3uz7SQ41n3x2n8VeJLMRMYkNTnzRrXHKo");
     });
+
+    test("sol.fi", async () => {
+        await compare("4V4dUfStHa17HREkifsoSradJw9Cjg4NGwGpWSeDSSMuj5u2cs3bDN1Bd12yR29bEmZDXE36Abv13WJd9YQ5Ra23");
+    });
 });
 
 async function compare(signature: string) {
